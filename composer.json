@@ -1,0 +1,19 @@
+{
+    "name": "ctala/facto_wsdl",
+    "description": "Libreria PHP para generar DTEs con Facto.cl",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cristian Tala Sanchez",
+            "email": "yomismo@cristiantala.cl"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "ctala\\Facto\\": "src/"
+        }
+    }
+}
