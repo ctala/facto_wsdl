@@ -83,7 +83,7 @@ class DTE {
     const NOTA_DEBITO_EXPORTACION_ELECTRONICA = 111;
     const NOTA_CREDITO_EXPORTACION_ELECTRONICA = 112;
 
-    function __construct($tipo_dte = null, $options = null) {
+    function __construct($tipo_dte = null, $options = array()) {
         if ($tipo_dte == null) {
             $this->tipo_dte = DTE::FACTURA_ELECTRONICA_EXENTA;
         }
