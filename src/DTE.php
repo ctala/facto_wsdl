@@ -57,6 +57,11 @@ class DTE {
      */
     var $dte;
 
+    /**
+     * Resultado
+     */
+    var $enlaces;
+
     /*
      * Constantes asociadas a los DTE
      * 33 = Factura electrónica
@@ -155,6 +160,8 @@ class DTE {
         try {
             $resultado = $this->client->emitirDocumento($this->dte);
             var_dump($resultado);
+            $this->enlaces = $resultado->enlaces;
+            
             return TRUE;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
