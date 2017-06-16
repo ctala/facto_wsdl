@@ -14,10 +14,12 @@ namespace ctala\Facto;
  * @author Cristian Tala <yomismo@cristiantala.cl>
  */
 class DTE {
+
+    var $client;
+
     /*
      * Variables del documento.
      */
-
     var $tipo_dte;
     var $fecha_emision;
     var $receptor_rut;
@@ -37,6 +39,23 @@ class DTE {
      */
     var $encabezado;
     var $detalles = null;
+
+    /*
+     * Generamos los totales
+     */
+    var $descuentorecargo_global_tipo = null;
+    var $descuentorecargo_global_valor = 0.0;
+    var $iva = 0.19;
+    var $total_exento = 0.0;
+    var $total_afecto = 0;
+    var $total_iva = 0;
+    var $total_final = 0.0;
+    var $totales;
+
+    /*
+     * DTE
+     */
+    var $dte;
 
     /*
      * Constantes asociadas a los DTE
@@ -64,12 +83,17 @@ class DTE {
     const NOTA_DEBITO_EXPORTACION_ELECTRONICA = 111;
     const NOTA_CREDITO_EXPORTACION_ELECTRONICA = 112;
 
-    function __construct($tipo_dte = null) {
+    function __construct($tipo_dte = null, $options = null) {
         if ($tipo_dte == null) {
             $this->tipo_dte = DTE::FACTURA_ELECTRONICA_EXENTA;
         }
         $fecha_emision = date("Y-m-d");
         $this->fecha_emision = $fecha_emision;
+        $this->client = new Server($options);
+    }
+
+    function generarEncabezado() {
+        $this->encabezado = new encabezado($this->tipo_dte, $this->fecha_emision, $this->receptor_rut, $this->receptor_razon, $this->receptor_direccion, $this->receptor_comuna, $this->receptor_ciudad, $this->receptor_telefono, $this->receptor_giro, $this->receptor_pais, $this->condiciones_pago, $this->receptor_email, $this->identificador_externo_doc);
     }
 
     /**
@@ -89,10 +113,52 @@ class DTE {
         if ($this->detalles == null) {
             $this->detalles = new detalles($detalle);
         } else {
-            //TODO agregar arreglo detalles.   
+//TODO agregar arreglo detalles.   
         }
 
 //        $this->detalles = $detalle;
+    }
+
+    function procesarTotales() {
+        /* @var $detalles detalles */
+        $detalles = $this->detalles;
+        /* @var $detalle detalle */
+        $detalle = $detalles->getDetalle();
+        if ($detalle->getExento_afecto() == 0) {
+
+            //Es excenta
+            $this->total_exento = $detalle->getMonto_unitario();
+            $this->total_afecto = 0.0;
+        } else {
+            //Es Afecta
+            $this->total_afecto = $detalle->getMonto_unitario();
+            $this->total_exento = 0.0;
+        }
+
+        $this->total_iva = $this->total_afecto * $this->iva;
+
+        $this->total_final = $this->totalFinal();
+
+
+        $this->totales = new totales($this->descuentorecargo_global_tipo, $this->descuentorecargo_global_valor, $this->total_exento, $this->total_afecto, $this->total_iva, $this->total_final);
+    }
+
+    function totalFinal() {
+        return $this->total_afecto + $this->total_exento + $this->total_iva;
+    }
+
+    function generarDTE() {
+        $this->dte = new emitir_dte($this->encabezado, $this->detalles, $referencias = null, null, $this->totales);
+    }
+
+    function emitirDTE() {
+        try {
+            $resultado = $client->emitirDocumento($dte);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+
+        var_dump($resultado);
     }
 
 }
