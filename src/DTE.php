@@ -140,7 +140,7 @@ class DTE {
         $this->total_final = $this->totalFinal();
 
 
-        $this->totales = new totales($this->descuentorecargo_global_tipo, $this->descuentorecargo_global_valor, $this->total_exento, $this->total_afecto, $this->total_iva, $this->total_final);
+        $this->totales = new totales($this->descuentorecargo_global_tipo, $this->descuentorecargo_global_valor, $this->total_exento, $this->total_afecto, $this->total_iva, null, null, $this->total_final);
     }
 
     function totalFinal() {
