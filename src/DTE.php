@@ -91,6 +91,8 @@ class DTE {
     function __construct($tipo_dte = null, $options = array()) {
         if ($tipo_dte == null) {
             $this->tipo_dte = DTE::FACTURA_ELECTRONICA_EXENTA;
+        } else {
+            $this->tipo_dte = $tipo_dte;
         }
         $fecha_emision = date("Y-m-d");
         $this->fecha_emision = $fecha_emision;
@@ -161,7 +163,7 @@ class DTE {
             $resultado = $this->client->emitirDocumento($this->dte);
             var_dump($resultado);
             $this->enlaces = $resultado->enlaces;
-            
+
             return TRUE;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -169,11 +171,8 @@ class DTE {
         }
     }
 
-    
-    
     function getEnlaces() {
         return $this->enlaces;
     }
-
 
 }
