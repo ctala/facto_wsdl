@@ -10,7 +10,6 @@ composer require ctala/facto_wsdl
 ## Modo de uso
 
 ```
-<?php
 
 include_once 'vendor/autoload.php';
 
