@@ -9,15 +9,15 @@ class Server extends \SoapClient
      * @var array $classmap The defined classes
      */
     private static $classmap = array (
-      'encabezado' => 'WSDL\\Facto\\encabezado',
-      'detalle' => 'WSDL\\Facto\\detalle',
-      'detalles' => 'WSDL\\Facto\\detalles',
-      'referencia' => 'WSDL\\Facto\\referencia',
-      'referencias' => 'WSDL\\Facto\\referencias',
-      'descuentorecargoglobal' => 'WSDL\\Facto\\descuentorecargoglobal',
-      'descuentorecargoglobales' => 'WSDL\\Facto\\descuentorecargoglobales',
-      'totales' => 'WSDL\\Facto\\totales',
-      'emitir_dte' => 'WSDL\\Facto\\emitir_dte',
+      'encabezado' => 'ctala\\Facto\\encabezado',
+      'detalle' => 'ctala\\Facto\\detalle',
+      'detalles' => 'ctala\\Facto\\detalles',
+      'referencia' => 'ctala\\Facto\\referencia',
+      'referencias' => 'ctala\\Facto\\referencias',
+      'descuentorecargoglobal' => 'ctala\\Facto\\descuentorecargoglobal',
+      'descuentorecargoglobales' => 'ctala\\Facto\\descuentorecargoglobales',
+      'totales' => 'ctala\\Facto\\totales',
+      'emitir_dte' => 'ctala\Facto\\emitir_dte',
     );
 
     /**
