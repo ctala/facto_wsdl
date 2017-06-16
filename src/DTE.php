@@ -154,11 +154,12 @@ class DTE {
     function emitirDTE() {
         try {
             $resultado = $this->client->emitirDocumento($this->dte);
+            var_dump($resultado);
+            return TRUE;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
+            return false;
         }
-
-        var_dump($resultado);
     }
 
 }
