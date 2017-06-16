@@ -153,7 +153,7 @@ class DTE {
 
     function emitirDTE() {
         try {
-            $resultado = $client->emitirDocumento($dte);
+            $resultado = $this->client->emitirDocumento($this->dte);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
