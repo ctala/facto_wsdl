@@ -169,4 +169,11 @@ class DTE {
         }
     }
 
+    
+    
+    function getEnlaces() {
+        return $this->enlaces;
+    }
+
+
 }
