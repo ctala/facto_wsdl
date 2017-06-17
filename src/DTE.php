@@ -61,6 +61,7 @@ class DTE {
      * Resultado
      */
     var $enlaces;
+    var $resultado;
 
     /*
      * Constantes asociadas a los DTE
@@ -160,8 +161,8 @@ class DTE {
 
     function emitirDTE() {
         try {
-            $resultado = $this->client->emitirDocumento($this->dte);
-            var_dump($resultado);
+            $this->resultado = $this->client->emitirDocumento($this->dte);
+//            var_dump($resultado);
             $this->enlaces = $resultado->enlaces;
 
             return TRUE;
