@@ -62,6 +62,7 @@ class DTE {
      */
     var $enlaces;
     var $resultado;
+    var $error;
 
     /*
      * Constantes asociadas a los DTE
@@ -162,12 +163,19 @@ class DTE {
     function emitirDTE() {
         try {
             $this->resultado = $this->client->emitirDocumento($this->dte);
-//            var_dump($resultado);
-            $this->enlaces = $resultado->enlaces;
+            if ($this->resultado->resultado->status == 0) {
+                $this->enlaces = $this->resultado->enlaces;
+                return true;
+            } else {
+                $this->error = $this->resultado->resultado->mensaje_error;
+                return false;
+            }
+
+
 
             return TRUE;
         } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
+            $this->error = $exc->getTraceAsString();
             return false;
         }
     }
